@@ -24,6 +24,21 @@ Wir beschäftigen uns in dieser Lehrveranstaltungen mit Dateisystemen und werden
 
 ## Terminal und BASH (Bourne again SHell)
 
-*  Klassische Computersysteme wurden über Text-basierte Terminals bedient
-*  Heute haben wir meist grafische Benutzeroberflächen
-*  Terminalemulatoren wie `xterm` bieten die Möglichkeitz zur Ausführung Text-basierter Programme
+Klassische Computersysteme wurden über Text-basierte Terminals bedient. Heute haben wir jedoch meist grafische Benutzeroberflächen. __Terminalemulatoren__ wie `xterm` bieten die Möglichkeitz zur Ausführung Text-basierter Programme.
+
+Eine __Shell__ ist eine Text-basierte Benuzterschnittstelle für Unix-verwandte Betriebssysteme wie Linux. Sie ermöglicht die Eingabe von Text-Kommandos über eine Eingabezeile, die dann sofort ausgeführt werden.
+
+Ein Beispiel für eine Shell ist die __Bourne again SHell__ (__BASH__), die wir hier verwenden werden.
+
+BASH führt die Kommandos immer innerhalb eines Arbeitsverzeichnisses aus. Welches Verzeichnis das aktuell ist, lässt sich mit dem Kommando `pwd` ausgeben.
+
+    TODO: Beispiel
+
+## Anzeigen von Verzeichnissen
+    
+Den Inhalt des aktuellen Verzeichnisses kann man mit dem Befehl `ls` anzeigen lassen.
+
+Ist man an einem anderen Beispiel interessiert (z.B. am Verzeichnis `/etc`), kann mann `ls /etc` eingeben.
+
+Wenn man den Namen eines Verzeichnisses nicht genau weis, hilft das Feature __Tab-Completion__: Gibt man Beispielsweise `ls /e` ein und drückt die Tabulator-Taste, wird automatisch `/etc` ergänzt, soweit dies eindeutig möglich ist. Bei Mehrdeutigkeiten werden die Alternativen aufgelistet. Dies funkioniert auch führ Kommando- und Dateinahmen und kann eine Menge Tipparbeit sparen.
+
