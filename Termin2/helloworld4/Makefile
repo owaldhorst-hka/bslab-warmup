@@ -1,13 +1,11 @@
-CPPFLAGS = -Wall -g
-LINKFLAGS = -lm
-
+BIN= helloworld
 OBJS = helloworld.o printhelloworld.o
 
-helloworld: $(OBJS)
-	g++ $(LINKFLAGS) $^ -o helloworld
+$(BIN): $(OBJS)
+	g++ $^ -o helloworld
 	
 %.o: %.cc
-	g++ $(CPPFLAGS) -c $<
+	g++ -c $<
 	
 clean:
 	rm -f helloworld *.o
