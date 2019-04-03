@@ -80,20 +80,7 @@ _Wir verwenden nun die Quelldateien im Verzeichnis `helloworld3`._
 
 Bei großen Projekten kann das manuelle Übersetzen und Linken ziemlich müßig sein. Hier helfen _Makefiles_, die die notwendigen Schritte automatisieren und dabei unveränderte Dateien automatisch erkenne, um ggf. Schritte einzusparen. Eine gute Einführung in Makefiles findet sich z.B. [hier](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/).
 
-Ein [Makefile](./helloworld3/Makefile) zum Erstellen unseres Beispielprojekts könnte so aussehen:
-
-	helloworld: helloworld.o printhelloworld.o
-		g++ helloworld.o printhelloworld.o -o helloworld
-		
-	helloworld.o: helloworld.cc
-		g++ -c helloworld.cc
-		
-	printhelloworld.o: printhelloworld.cc
-		g++ -c printhelloworld.cc
-		
-	clean:
-		rm -f helloworld *.o
-
+Unser Beispielprojekt könnte man also auch über ein [Makefile](./helloworld3/Makefile) erstellen lassen.
 
 Dabei definiert jede nicht eingerückte Zeile eine _Regel_. Am Anfang einer Regel steht ein _Ziel_ (engl. _target_), gefolgt von einem Doppelpunkt und ggf. einer oder mehreren _Abhängigkeiten_ (engl. _dependencies_). Dies ist so zu lesen: Wenn das Ziel (in der Regel eine Datei) nicht existiert oder älter ist als mindestens eine Abhängigkeit (zumeist auch Dateien), wird das Kommando in der nächsten, eingerückten Zeile ausgeführt. Im Beispiel wird etwa das Programm `helloworld` gelinkt, wenn sich `helloworld.o` oder `printhelloworld.o` geändert haben. Mehrzeilige Kommandos lassen sich darstellen, indem am Ende einer Zeile ein `\` angehängt wird. 
 
@@ -153,21 +140,8 @@ Nun ist die Frage, wie mann dann ein passendes Kommando für die Regel definiere
 
 Nützlich sind bei der Regeldefinition auch Variablen. Diese werden in Großbuchstaben geschrieben und am Zeilenanfang gefolgt von einem `=` definiert. Die Variable kann mit <pre>... $(<em>Variable</em>) ...</pre> verwendet werden.
 
-Eine kompakte Darstellung unseres Makefiles von oben könnte dann z.B. so aussehen:
+So lässt sich eine [kompakte Version](./helloworld4/Makefile) unseres Makefiles von oben erstellen.
 
-<pre>
-BIN= helloworld
-OBJS = helloworld.o printhelloworld.o
-
-$(BIN): $(OBJS)
-	g++ $^ -o helloworld
-	
-%.o: %.cc
-	g++ -c $<
-	
-clean:
-	rm -f helloworld *.o
-</pre>
 
 ### Übung: Erweitern Sie dieses Makefile so, dass Ihr Projekt von oben mit neuer Quell- und Header-Datei übersetzt wird. 
 

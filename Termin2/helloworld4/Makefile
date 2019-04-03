@@ -2,10 +2,10 @@ BIN= helloworld
 OBJS = helloworld.o printhelloworld.o
 
 $(BIN): $(OBJS)
-	g++ $^ -o helloworld
+	g++ $^ -o $@
 	
 %.o: %.cc
 	g++ -c $<
 	
 clean:
-	rm -f helloworld *.o
+	rm -f $(BIN) $(OBJS)
