@@ -2,17 +2,17 @@
 
 ## Vorbereitung
 
-Für diesen Termin werden einige Dateien aus dem GitLab-Projekt benötigen. Für den Zugriff können Sie am Besten das komplette Projekt "klonen":
+Für diesen Termin werden einige Dateien aus dem GitLab-Projekt benötigt. Für den Zugriff können Sie am Besten das komplette Projekt "klonen":
 
-    git clone <todo>
+    git clone https://iz-gitlab-01.hs-karlsruhe.de/waol0001/bslab-warmup
     
-Die Dateien für diesen Termin liegen im Unterverzeichnis `bslab-warmup/Termin2`.
+Die benötigten Dateien liegen im Unterverzeichnis `bslab-warmup/Termin2`.
 
 ## Übersetzen eines C++-Programms
 
 _Wir verwenden zunächst das C++-Programm [helloworld.cc](./helloworld/helloworld.cc) im Verzeichnis `helloworld`._
 
-Wir übersetzen dieses Programm mit dem Kommando
+Wir kompilieren die Quelldatei [helloworld.cc](./helloworld/helloworld.cc) mit dem Kommando
 
     g++ helloworld.cc
 
@@ -28,14 +28,14 @@ Der Name `a.out` ist etwas ungeschickt. Wir können aber direkt beim Übersetzen
 
 _Wir verwenden nun die Quelldateien im Verzeichnis `helloworld2`._
 
-Beim Übersetzen eines Programms werden zwei Schritte durchgeführt:
+Beim Kompilieren eines Programms werden zwei Schritte durchgeführt:
 
-1. _Übersetzen_: Übersetzung einer Quelldatei in einer Hochsprache (hier: C++) in eine _Objektdatei_ mit Maschinencode. Die Objektdatei ist noch nicht ausführbar und kann z.B. Referenzen auf Funktionen und Variablen enthalten, die in anderen Objektdateien oder Bibliotheken definiert sind.
-2. _Linken_: Erzeugt aus einer oder mehreren Objektdateien ein ausführbares Programm. Dabei werden insbesondere alle Referenzen aufgelöst. Daher müssen alle verwendeten Funktionen und Variablen in genau einer Objektdate definiert sein.
+1. _Übersetzen_: Umwandlung einer Quelldatei aus einer Hochsprache (hier: C++) in eine _Objektdatei_ mit Maschinencode. Die Objektdatei ist noch nicht ausführbar und kann z.B. Referenzen auf Funktionen und Variablen enthalten, die in anderen Objektdateien oder Bibliotheken definiert sind.
+2. _Linken_: Erzeugung eines ausführbaren Programms aus einer oder mehreren Objektdateien. Dabei werden insbesondere alle Referenzen aufgelöst. Daher müssen alle verwendeten Funktionen und Variablen in genau einer der an den Linker übergebenen Objektdateien definiert sein.
 
-Der Befehl oben führt beide Schritte auf einmal durch. Wenn man ein Projekt mit mehreren Quelldateien besitzt, kann es aber sinnvoll sein, diese einzeln zu übersetzen und am Schluss zu linken. Dann muss man z.B. bei einer Änderung einer Quelldatei nur dieses neu übersetzen und das Linken wiederholen.
+Der Befehl oben führt beide Schritte auf einmal durch. Wenn man ein Projekt mit mehreren Quelldateien besitzt, kann es aber sinnvoll sein, diese einzeln zu übersetzen und am Schluss zu einmalig linken. Dann muss man z.B. bei einer Änderung einer Quelldatei nur diese neu übersetzen und das Linken wiederholen.
 
-Als Beispiel wurde das Programm von oben in zwei Programmteile zerlegt: `helloworld.cc` enthält die Startfunktion `main()`, mit der die Programmausführung beginnt. Die Funktion verwendet eine Funktion `printhelloworld()`, die in `printhelloworld.cc` definiert ist. Beim Übersetzen von `helloworld.cc` muss bekannt sein, dass es die Funktion `printhelloworld()` (irgendwo) gibt. Dazu muss die Funktion deklariert sein. Damit man ein Deklaration nicht in jeder Quelldatei wiederholen muss, lagert man Deklarationen in Header-Dateien aus, in diesem Fall in [printhelloworld.h](./helloworld2/printhelloworld.h). Die Header-Datei wird dann über eine Include-Direktive in die Quelldatei eingebunden, hier mit `#include "printhelloworld.h"`.
+Als Beispiel wurde das Programm von oben in zwei Quelldateien zerlegt: [helloworld.cc](./helloworld2/helloworld.cc) enthält die Startfunktion `main()`, mit der die Programmausführung beginnt. Die Funktion verwendet eine Funktion `printhelloworld()`, die in [printhelloworld.cc](./helloworld2/printhelloworld.cc) _definiert_ ist. Beim Übersetzen von [helloworld.cc](./helloworld2/helloworld.cc) muss bekannt sein, dass es die Funktion `printhelloworld()` (irgendwo) gibt. Dazu muss die Funktion _deklariert_: sein. Damit man ein Deklaration nicht in jeder Quelldatei wiederholen muss, lagert man Deklarationen in Header-Dateien aus, in diesem Fall in [printhelloworld.h](./helloworld2/printhelloworld.h). Die Header-Datei wird dann über eine Include-Direktive in die Quelldatei eingebunden, hier mit `#include "printhelloworld.h"`.
 
 Wenn wir nun die Quelldateien einzeln übersetzen und anschließend linken wollen, gehen wir wie folgt vor:
 
@@ -47,7 +47,7 @@ Das Übersetzen erzeugt dabei Objektdateien mit der Dateiendung `.o`, also `hell
 	
 ### Übung: Fügen Sie einen weiteren Funktionsaufruf in `main()` ein und definieren Sie die Funktion in einer neuen Quelldatei mit entsprechender Header-Datei.
 
-## Fehler beim Übersetzen und Linken
+## Fehler beim Übersetzen vs. Fehler beim Linken
 
 Wenn der Compiler beim Übersetzen auf eine Funktion oder Variable stößt, die nicht _deklariert_ ist, gibt es eine Fehlermeldung mit dem Text `... was not declared in this scope`. Ändert man beispielsweise den Funktionsaufruf in [helloworld.cc](./helloworld2/helloworld.cc) von `printhelloworld()` in `printhelluwurld()`, passiert beim Übersetzen folgendes:
 
@@ -71,16 +71,16 @@ collect2: error: ld returned 1 exit status
 
 Beim automatischen Übersetzen (s.u.) eines komplexen Projekts kann man also anhand der Fehlermeldung unterscheiden, was bei der Verwendung von Funktionen und Variablen schief gelaufen ist:
 
-* `... was not declared in this scope` deutet auf eine fehlende Deklaration beim _Übersetzen_ hin, meist durch eine nicht eingebundene Header-Datei.
-* `undefined reference to ...` deutet auf eine fehlende Referenz beim _Linken_ hin, meist durch eine nicht mit an den Linker übergebene Objekt-Datei. 
+* `... was not declared in this scope` deutet auf eine _fehlende Deklaration_‚ beim _Übersetzen_ hin, meist durch eine nicht eingebundene Header-Datei.
+* `undefined reference to ...` deutet auf eine _nicht definierte Referenz_ beim _Linken_ hin, meist durch eine nicht mit an den Linker übergebene Objekt-Datei. 
 
 ## Verwendung von Makefiles
 
 _Wir verwenden nun die Quelldateien im Verzeichnis `helloworld3`._
 
-Bei großen Projekten kann das manuelle Übersetzen und Linken ziemlich müßig sein. Hier helfen _Makefiles_, die die notwendigen Schritte automatisieren und dabei Änderungen an Dateien automatisch erkenne, um ggf. Schritte einzusparen. Eine gute Einführung in Makefiles findet sich z.B. [hier](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/).
+Bei großen Projekten kann das manuelle Übersetzen und Linken ziemlich müßig sein. Hier helfen _Makefiles_, die die notwendigen Schritte automatisieren und dabei unveränderte Dateien automatisch erkenne, um ggf. Schritte einzusparen. Eine gute Einführung in Makefiles findet sich z.B. [hier](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/).
 
-Ein Makefile zum Übersetzen unseres Beispielprojekts könnte so aussehen:
+Ein [Makefile](./helloworld3/Makefile) zum Erstellen unseres Beispielprojekts könnte so aussehen:
 
 	helloworld: helloworld.o printhelloworld.o
 		g++ helloworld.o printhelloworld.o -o helloworld
@@ -95,13 +95,13 @@ Ein Makefile zum Übersetzen unseres Beispielprojekts könnte so aussehen:
 		rm -f helloworld *.o
 
 
-Dabei definiert jede nicht eingerückte Zeile eine _Regel_. Am Anfang einer Regel steht ein _Ziel_ (engl. _target_), gefolgt von einem Doppelpunkt und ggf. einer oder mehreren _Abhängigkeiten_ (engl. _dependencies_). Dies ist so zu lesen: Wenn das Ziel (in der Regel eine Datei) nicht existiert oder älter ist als mindestens eine Abhängigkeit (zumeist auch Dateien), wird das Kommando in der nächsten, eingerückten Zeile ausgeführt. Im Beispiel wird z.B. das Programm `helloworld` gelinkt, wenn sich `helloworld.o` oder `printhelloworld.o` geändert haben. Mehrzeilige Kommandos lassen sich darstellen, indem am Ende einer Zeile ein `\` angehängt wird. 
+Dabei definiert jede nicht eingerückte Zeile eine _Regel_. Am Anfang einer Regel steht ein _Ziel_ (engl. _target_), gefolgt von einem Doppelpunkt und ggf. einer oder mehreren _Abhängigkeiten_ (engl. _dependencies_). Dies ist so zu lesen: Wenn das Ziel (in der Regel eine Datei) nicht existiert oder älter ist als mindestens eine Abhängigkeit (zumeist auch Dateien), wird das Kommando in der nächsten, eingerückten Zeile ausgeführt. Im Beispiel wird etwa das Programm `helloworld` gelinkt, wenn sich `helloworld.o` oder `printhelloworld.o` geändert haben. Mehrzeilige Kommandos lassen sich darstellen, indem am Ende einer Zeile ein `\` angehängt wird. 
 
 Für jedes Ziel muss es eine Kette von Regeln geben, mit dem es aus existierenden Quelldateien erzeugt werden kann. Z.B. benötigt das Ziel `helloworld` die Objektdateien `helloworld.o` und `printhelloworld.o`. Für letztere gibt es Regeln, die diese aus `helloworld.cc` bzw. `printhelloworld.cc` erstellen.
 
-Zu beachten ist, dass die Regel für das Ziel `clean` keine Datei mit dem Namen `clean` erzeugt, also immer angewendet wird.
+Zu beachten ist, dass die Regel für das Ziel `clean` keine Datei mit dem Namen `clean` erzeugt, also immer angewendet wird. Dieses Ziel besitzt auch keine Abhängigkeiten.
 
-Ein 'Makefile' lässt sich mit dem Kommando <pre>make <em>&lt;ziel&gt;</em></pre> übersetzen. Wird kein Ziel angegeben, wird das erste Ziel der ersten Regel im Makefile verwendet. 
+Ein Ziel in einem 'Makefile' lässt sich mit dem Kommando <pre>make <em>&lt;ziel&gt;</em></pre> erstellen. Wird kein Ziel angegeben, wird das Ziel der ersten Regel im Makefile verwendet. 
 
 Unser Beispielprojekt lässt sich übersetzen mit `make` bzw. `make helloworld`:
 
@@ -112,14 +112,14 @@ g++ -c printhelloworld.cc
 g++ helloworld.o printhelloworld.o -o helloworld
 </pre>
 
-Führt man das Kommando erneut aus, wird über Regeln und Abhängigkeiten erkannt, dass nichts zu tun ist:
+Führt man das Kommando erneut aus, wird über Regeln und Abhängigkeiten erkannt, dass für das Ziel `helloworld` nichts zu tun ist:
 
 <pre>
 waldhorst@debian:~/bslab-warmup/Termin2/helloworld3$ <b>make</b>
 make: 'helloworld' is up to date.
 </pre>
 
-Wenn man nun eine der Objektdateien mit dem Kommando `touch` verändert, wird dieses von 'make' erkannt und alle betroffenen Zeile werden neu erstellt.
+Wenn man nun die Erzeugungszeit einer der Objektdateien mit dem Kommando `touch` verändert, wird dieses von `make` erkannt und alle betroffenen Ziele werden neu erstellt.
 
 <pre>
 waldhorst@debian:~/bslab-warmup/Termin2/helloworld3$ <b>touch helloworld.cc</b>
