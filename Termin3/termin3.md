@@ -24,7 +24,7 @@ Bevor ein Programm eine Datei verarbeiten kann, muss diese zunächst _geöffnet_
 
 Die C-Bibliothek stellt zum Öffnen von Dateien die Methode `open()` bereit. Die Verwendung der Methode kann mit Hilfe des Befehls `man 2 open` auf der entsprechenden Hilfsseite nachgeschlagen werden. Die Hilfsseite zeigt auch, welche Header-Dateien die Deklarationen der Funktion enthalten.
 
-Neben dem Pfad zur Datei `pathname` hat `open` einen Parameter `mode`. Dieser erlaubt es, genauere Angaben dazu zu machen, wozu die Datei geöffnet werden soll. Gebräuchliche Werte für `mode` sind z.B.:
+Neben dem Pfad zur Datei `pathname` hat `open` einen Parameter `flags`. Dieser erlaubt es, genauere Angaben dazu zu machen, wozu die Datei geöffnet werden soll. Gebräuchliche Werte für `flags` sind z.B.:
 
 |Wert|Bedeutung|
 |---|---|
@@ -35,14 +35,14 @@ Neben dem Pfad zur Datei `pathname` hat `open` einen Parameter `mode`. Dieser er
 |O_CREAT | Datei wird neu angelegt |
 |O_TRUNC | Inhalt der Datei wird beim Öffnen gelöscht |
 
-Weitere Werte für `mode` sind auf der Hilfsseite zu `open()` zu finden.
+Weitere Werte für `flags` sind auf der Hilfsseite zu `open()` zu finden.
 
-Es besteht die Möglichkeit, mehrere Werte für Mode zu verwenden, indem diese mit einem logischen "oder" `|` verknüpft werden, z.B. `O_CREATE | O_RDWR`.
+Es besteht die Möglichkeit, mehrere Werte für Mode zu verwenden, indem diese mit einem logischen "oder" `|` verknüpft werden, z.B. `O_CREAT | O_RDWR`.
 
 Ein Beispiel für die Verwendung von `open` wäre
 
     int fd;
-    fd = open("1.txt", O_CREATE | O_RDWR);
+    fd = open("1.txt", O_CREAT | O_RDWR);
     
 Hier ist zu beachten, dass `open` einen Integer-Wert als Rückgabe liefert. Dieser wird als _Dateideskriptor_ bezeichnet und kann später verwendet werden, wenn auf die geöffnete Datei zugegriffen wird.
 
