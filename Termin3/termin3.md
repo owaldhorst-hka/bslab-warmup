@@ -37,12 +37,12 @@ Neben dem Pfad zur Datei `pathname` hat `open` einen Parameter `flags`. Dieser e
 
 Weitere Werte für `flags` sind auf der Hilfsseite zu `open()` zu finden.
 
-Es besteht die Möglichkeit, mehrere Werte für Mode zu verwenden, indem diese mit einem logischen "oder" `|` verknüpft werden, z.B. `O_CREATE | O_RDWR`.
+Es besteht die Möglichkeit, mehrere Werte für Mode zu verwenden, indem diese mit einem logischen "oder" `|` verknüpft werden, z.B. `O_CREAT | O_RDWR`.
 
 Ein Beispiel für die Verwendung von `open` wäre
 
     int fd;
-    fd = open("1.txt", O_CREATE | O_RDWR);
+    fd = open("1.txt", O_CREAT | O_RDWR);
     
 Hier ist zu beachten, dass `open` einen Integer-Wert als Rückgabe liefert. Dieser wird als _Dateideskriptor_ bezeichnet und kann später verwendet werden, wenn auf die geöffnete Datei zugegriffen wird.
 
