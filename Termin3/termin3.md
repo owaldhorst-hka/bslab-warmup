@@ -42,7 +42,7 @@ Es besteht die Möglichkeit, mehrere Werte für Mode zu verwenden, indem diese m
 Ein Beispiel für die Verwendung von `open` wäre
 
     int fd;
-    fd = open("1.txt", O_CREAT | O_RDWR);
+    fd = open("1.txt", O_CREAT | O_RDWR, 0666);
     
 Hier ist zu beachten, dass `open` einen Integer-Wert als Rückgabe liefert. Dieser wird als _Dateideskriptor_ bezeichnet und kann später verwendet werden, wenn auf die geöffnete Datei zugegriffen wird.
 
