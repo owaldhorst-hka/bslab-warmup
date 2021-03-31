@@ -8,7 +8,7 @@ Für diesen Termin werden wieder einige Dateien aus dem GitLab-Projekt benötigt
 
 Wenn Sie das Projekt erneut klonen möchten, müssen Sie eingeben:
 
-    git clone https://iz-gitlab-01.hs-karlsruhe.de/waol0001/bslab-warmup
+    git clone https://github.com/owaldhorst-hka/bslab-warmup
     
 Die benötigten Dateien liegen im Unterverzeichnis `bslab-warmup/Termin3`.
 
